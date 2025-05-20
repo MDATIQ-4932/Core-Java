@@ -15,7 +15,7 @@ public class LearnInheritanceCar {
         c.setNumberOfDoors(10);
         c.setSpeed(250);
         
-        b.setBrand("royal");
+        b.setBrand("Royal");
         b.setHasCareerBike(5);
         b.setSpeed(200);
         
