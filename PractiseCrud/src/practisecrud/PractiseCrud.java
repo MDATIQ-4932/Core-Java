@@ -1,4 +1,4 @@
-package advancedjavacrud;
+package practisecrud;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,39 +7,39 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Dbutil;
 
-public class AdvancedJavaCrud {
+public class PractiseCrud {
 
     static Dbutil du = new Dbutil();
     static PreparedStatement ps;
     static String sql;
 
     public static void main(String[] args) {
-
-        saveStudent("artik", "abc@gmail.com", "mohammadpur");
+        
+         saveStuent("shimul", "abc@gmail.com", "mohammadpur");
 
         System.out.println("After save");
        
         System.out.println("-------");
          showAllStudent();
-        updateStudent(2, "shimul", "atik@gmail.com", "dhaka");
+        updateStudent(2, "imran", "imran@gmail.com", "dhaka");
         System.out.println("After update");
         showAllStudent();
         System.out.println("-------");
 
-        deletestudent(1);
+        deleteStudent(1);
         showAllStudent();
         System.out.println("-------");
         
         
-        
-    }
-                    //save method
-    public static void saveStudent(String name, String email, String address) {
 
+    }
+
+    public static void saveStuent(String name, String email, String address) {
         sql = "insert into student(name, email, address) values(?,?,?)";
 
         try {
             ps = du.getCon().prepareStatement(sql);
+
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, address);
@@ -51,19 +51,16 @@ public class AdvancedJavaCrud {
             System.out.println("-------");
 
         } catch (SQLException ex) {
-            Logger.getLogger(AdvancedJavaCrud.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PractiseCrud.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static void showAllStudent() {
 
         sql = "select* from student";
-
         try {
             ps = du.getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -78,13 +75,15 @@ public class AdvancedJavaCrud {
             du.getCon().close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(AdvancedJavaCrud.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PractiseCrud.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-            //   delete method
-    public static void deletestudent(int id) {
+
+    public static void deleteStudent(int id) {
+
         sql = "delete from student where id=?";
+
         try {
             ps = du.getCon().prepareStatement(sql);
             ps.setInt(1, id);
@@ -96,14 +95,14 @@ public class AdvancedJavaCrud {
             du.getCon().close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(AdvancedJavaCrud.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PractiseCrud.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-                    //   update method
+
     public static void updateStudent(int id, String name, String email, String address) {
 
         sql = "update student set name =?,email =?,address =? where id=?";
+
         try {
             ps = du.getCon().prepareStatement(sql);
             ps.setString(1, name);
@@ -116,9 +115,8 @@ public class AdvancedJavaCrud {
             du.getCon().close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(AdvancedJavaCrud.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PractiseCrud.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
 }
